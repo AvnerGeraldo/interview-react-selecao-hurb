@@ -33,10 +33,15 @@ class App extends PureComponent
 	componentDidMount() {
 		getBackgroundImage()
 			.then(res => {
-				console.log(res.urlImage)
+
+				if (res.error)
+					throw new Error(res.error)
+					
 				this.setState({
-				backgroundImage: res.urlImage
-			})})
+					backgroundImage: res.urlImage
+				})
+			})
+			.catch(e => alert(`Error: ${e.message}`))
 	}
 
 	render() {
