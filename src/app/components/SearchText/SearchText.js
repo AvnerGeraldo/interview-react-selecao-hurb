@@ -35,12 +35,18 @@ class SearchText extends PureComponent
 
 		if (city.length > 4) {
 			getWeatherByCity(city)
-				.then(res => dispatch({
+				.then(data => 
+				{
+					if (data.error)
+						throw new Error(data.error)
+						
+					dispatch({
 						type: SET_WEATHER_DATA,
 						payload: {
-							data: res.json()
+							data
 						}
-				}))
+					})
+				})
 				.catch(e => dispatch({
 					type: FAIL_SET_WEATHER_DATA,
 					payload: {
@@ -53,7 +59,7 @@ class SearchText extends PureComponent
 	render() {
 		return (
 			<Form>
-				<Form.Group>
+				<Form.Group style={{ marginBottom: 0 }}>
 					<InputGroup>
 						<InputGroup.Prepend>
 							<InputGroup.Text style={{ padding: '0px' }}>
