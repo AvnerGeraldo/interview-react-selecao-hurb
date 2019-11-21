@@ -12,10 +12,10 @@ const Box = styled.div`
 	}
 	.weather-box:first-child {
 		height: 14rem;
-		background: rgba(0,0,0,.25);
+		background: rgba(0,0,0,.5);
 	}
 	.weather-box {
-		background-color: rgba(0,0,0,.5);
+		background-color: rgba(0,0,0,.7);
 		opacity: 0.9;
 		min-height: 5rem;
 	}
@@ -62,13 +62,13 @@ const WeatherBox = props => {
 				//Define opacity
 				switch (index + 1) {
 					case 1:
-						opacity = ".25"
+						opacity = ".5"
 						break
 					case 3:
 						opacity = ".4"
 						break;				
 					default:
-						opacity = ".5"
+						opacity = ".7"
 						break;
 				}
 	
