@@ -33,7 +33,7 @@ class SearchText extends PureComponent
 	findWeatherByCity = (city) => {
 		const { dispatch } = this.props
 
-		if (city.length > 4) {
+		if (city.length > 2) {
 			getWeatherByCity(city)
 				.then(data => 
 				{
@@ -62,7 +62,12 @@ class SearchText extends PureComponent
 				<Form.Group style={{ marginBottom: 0 }}>
 					<InputGroup>
 						<InputGroup.Prepend>
-							<InputGroup.Text style={{ padding: '0px' }}>
+							<InputGroup.Text style={{ 
+								padding: '0px',
+								background: '#D3D3D3',
+								border: '0px',
+								borderRadius: '0px'
+							}}>
 								<img 
 									src={compassIcon} 
 									alt="Location Icon"
@@ -74,7 +79,14 @@ class SearchText extends PureComponent
 							placeholder="City, State"
 							required 
 							onChange={this.searchTextHandler}
-							value={this.state.textValue} />
+							value={this.state.textValue} 
+							style={{
+								border: '0px',
+								background: '#D3D3D3',
+								borderRadius: '0px',
+								fontWeight: 'bold',
+								color: '#8B8989'
+							}}/>
 					</InputGroup>
 				</Form.Group>
 			</Form>
