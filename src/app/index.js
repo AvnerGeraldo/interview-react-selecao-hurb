@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 //Css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,6 +11,8 @@ import AppConfig from './config'
 import SearchText from './components/SearchText/SearchText'
 import WeatherBox from './components/WeatherBox/WeatherBox'
 
+import { getBackgroundImage } from '../api/backgroundAPI'
+
 //styled
 import styled from 'styled-components'
 
@@ -22,15 +24,39 @@ const Container = styled.div`
     justify-content: center;
 `
 
-export default _=> (
-	<AppConfig>
-		<Container className="container-fluid">
-			<Row className="justify-content-center">
-				<Col md="auto" lg="6" md="6" xs="12">
-					<SearchText />
-					<WeatherBox />
-				</Col>
-			</Row>
-		</Container>
-	</AppConfig>
-)
+class App extends PureComponent
+{
+	state = {
+		backgroundImage: ''
+	}
+
+	componentDidMount() {
+		getBackgroundImage()
+			.then(res => {
+				console.log(res.urlImage)
+				this.setState({
+				backgroundImage: res.urlImage
+			})})
+	}
+
+	render() {
+		const { backgroundImage } = this.state
+
+		return (
+			<AppConfig>
+				<Container className="container-fluid" style={{
+					background: `url(${backgroundImage}) no-repeat`
+				}}>
+					<Row className="justify-content-center">
+						<Col md="auto" lg="4" md="6" xs="12">
+							<SearchText />
+							<WeatherBox />
+						</Col>
+					</Row>
+				</Container>
+			</AppConfig>
+		)
+	}
+}
+
+export default App
