@@ -114,7 +114,10 @@ class WeatherBox extends Component
 							key={index}
 							background={color}
 							opacity={opacity}
-							onClick={_=>this.changeWeatherUnit(data.city.name, changeUnit)}>
+							onClick={_=>this.changeWeatherUnit(data.city.name, changeUnit)}
+							style={{
+								cursor: 'pointer'
+							}}>
 							
 							<WeatherDetails
 								index={index}
