@@ -20,6 +20,16 @@ class SearchText extends PureComponent
 		textValue: ''
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		const { userLocation } = this.props
+
+		if (prevState.textValue.length === 0 && userLocation.length > 0) {
+			this.setState({ textValue: userLocation })
+			this.findWeatherByCity(userLocation)
+		}
+	}
+	
+
 	searchTextHandler = e => {
 		const city = e.target.value
 		
