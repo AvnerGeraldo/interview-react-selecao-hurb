@@ -23,7 +23,7 @@ class SearchText extends PureComponent
 	componentDidUpdate(prevProps, prevState) {
 		const { userLocation } = this.props
 
-		if (prevState.textValue.length === 0 && userLocation.length > 0) {
+		if (prevState.textValue.length === 0 && prevProps.userLocation.length === 0 && userLocation.length > 0) {
 			this.setState({ textValue: userLocation })
 			this.findWeatherByCity(userLocation)
 		}
@@ -42,6 +42,15 @@ class SearchText extends PureComponent
 
 	findWeatherByCity = (city) => {
 		const { dispatch } = this.props
+
+		if (city.length === 0) {
+			dispatch({
+				type: SET_WEATHER_DATA,
+				payload: {
+					data: {}
+				}
+			})
+		}
 
 		if (city.length > 2) {
 			getWeatherByCity(city)
