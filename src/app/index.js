@@ -53,7 +53,7 @@ class App extends PureComponent
 					background: `url(${backgroundImage}) no-repeat`
 				}}>
 					<Row className="justify-content-center">
-						<Col md="auto" lg="4" md="6" xs="12">
+						<Col lg="4" md="6" xs="12">
 							<SearchText />
 							<WeatherBox />
 						</Col>
