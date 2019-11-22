@@ -19,6 +19,9 @@ export const getWeatherByCity = async (city, units = 'metric') => {
 		data.list = data.list.filter(i => actualHour === moment(i.dt_txt).format('HH:mm:ss'))
 			.filter((i, index) => index < 3)
 
+		//Set unit in data
+		data.city.unit = units
+
 		return { ...data }
 	} catch(e) {
 		return {
