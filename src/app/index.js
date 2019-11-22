@@ -11,7 +11,11 @@ import AppConfig from './config'
 import SearchText from './components/SearchText/SearchText'
 import WeatherBox from './components/WeatherBox/WeatherBox'
 
+//Bing API
 import { getBackgroundImage } from '../api/backgroundAPI'
+
+//Geolocation API
+import { Geolocation } from '../api/GeoAPI'
 
 //styled
 import styled from 'styled-components'
@@ -27,7 +31,8 @@ const Container = styled.div`
 class App extends PureComponent
 {
 	state = {
-		backgroundImage: ''
+		backgroundImage: '',
+		userLocation: ''
 	}
 
 	componentDidMount() {
@@ -41,11 +46,27 @@ class App extends PureComponent
 					backgroundImage: res.urlImage
 				})
 			})
-			.catch(e => alert(`Error: ${e.message}`))
+			.catch(e => console.error(`Error: ${e.message}`))
+
+		//Check Geolocation API
+		if (navigator.geolocation)
+			navigator.geolocation.getCurrentPosition(position => {
+				const latitude = position.coords.latitude
+				const longitude = position.coords.longitude
+
+				Geolocation(latitude, longitude)
+					.then(res => {
+						if (res.error)
+							throw new Error(res.error)
+						
+						this.setState({ userLocation: `${res.city}, ${res.state}` })
+					})
+					.catch(e => console.error(e.message))
+			}, error => console.error(error.message))
 	}
 
 	render() {
-		const { backgroundImage } = this.state
+		const { backgroundImage, userLocation } = this.state
 
 		return (
 			<AppConfig>
@@ -54,7 +75,7 @@ class App extends PureComponent
 				}}>
 					<Row className="justify-content-center">
 						<Col lg="4" md="6" xs="12">
-							<SearchText />
+							<SearchText userLocation={userLocation} />
 							<WeatherBox />
 						</Col>
 					</Row>
