@@ -1,6 +1,6 @@
 # Desafio Charlie
 
-## Challeng Accepted !!! :wink:
+## Challenge Accepted !!! :wink:
 
 Projeto desenvolvido utilizando as bibliotecas React + Redux + Styled Components 💅
 
